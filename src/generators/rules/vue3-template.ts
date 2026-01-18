@@ -1,4 +1,8 @@
-export const VUE3_RULES_TEMPLATE = `# AI-Pilot Generated Rules - Vue 3
+import { RULES_MARKER } from './marker';
+
+export const VUE3_RULES_TEMPLATE = `${RULES_MARKER}
+
+# AI-Pilot Generated Rules - Vue 3
 
 ## Vue 3 Best Practices
 - Prefer Composition API and <script setup>.

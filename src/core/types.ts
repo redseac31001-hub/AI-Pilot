@@ -13,6 +13,11 @@ export interface Evidence {
   weight: number;
 }
 
+export interface GeneratedRule {
+  path: string;
+  content: string;
+}
+
 export interface DetectionResult {
   techStack: {
     framework: Framework;

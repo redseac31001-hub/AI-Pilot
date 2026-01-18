@@ -13,7 +13,24 @@ export function readText(filePath: string): string | null {
   }
 }
 
+export function readJson<T>(filePath: string): T | null {
+  const raw = readText(filePath);
+  if (!raw) {
+    return null;
+  }
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
 export function writeText(filePath: string, content: string): void {
   ensureDir(path.dirname(filePath));
   fs.writeFileSync(filePath, content, 'utf8');
+}
+
+export function writeJson(filePath: string, data: unknown): void {
+  const content = `${JSON.stringify(data, null, 2)}\n`;
+  writeText(filePath, content);
 }

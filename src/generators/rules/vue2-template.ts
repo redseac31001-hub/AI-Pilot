@@ -1,4 +1,8 @@
-export const VUE2_RULES_TEMPLATE = `# AI-Pilot Generated Rules - Vue 2
+import { RULES_MARKER } from './marker';
+
+export const VUE2_RULES_TEMPLATE = `${RULES_MARKER}
+
+# AI-Pilot Generated Rules - Vue 2
 
 ## Vue 2 Best Practices
 - Use the Options API for consistency.

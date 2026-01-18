@@ -1,6 +1,7 @@
 import {
   ConfigBundle,
   DetectionResult,
+  GeneratedRule,
   WritePlan,
   WriteResult,
 } from './types';
@@ -12,7 +13,7 @@ export interface StackDetector {
 
 export interface RuleGenerator {
   id: string;
-  generate(context: DetectionResult): string;
+  generate(context: DetectionResult): GeneratedRule[];
 }
 
 export interface SkillProvider {
