@@ -52,26 +52,37 @@
 
 ## 执行进度
 
-### Phase 0: 项目初始化（进行中）
+### Phase 1: 端到端最小闭环（进行中）
 
 ```
 执行人: @GPT-5.2
-状态: 🔄 进行中
-Reviewer: @Gemini-2.0-Flash
+状态: 🚀 进行中 (Sub-phase 1A: Read-Only Loop)
+Reviewer: @Claude-Sonnet-4.5 (验收) / @Gemini-2.0-Flash (设计)
 
-硬约束（已接受）:
-  ✅ 1. 目录结构严格按第3章，不引入额外层级
-  ✅ 2. src/core/types.ts 必须包含 Step 0 冻结的类型
-  ✅ 3. 非 TTY 默认 dry-run，需 --write --yes 才写盘
-  ✅ 4. 不通过"兼容映射"假装支持未知 IDE
-  ✅ 5. fixtures 必须覆盖 vue2/vue3 两个场景
+当前任务 (Phase 1A):
+  - [ ] src/detectors/l1-detector.ts (Vue2/3 识别)
+  - [ ] src/generators/rules/*.ts (模板生成)
+  - [ ] src/adapters/*.ts (仅 plan 方法)
+  - [ ] src/cli/init.ts (Dry-run 流程)
 
 预期产出:
-  - [ ] npm init + tsconfig + eslint 配置
-  - [ ] src/ 目录结构（按第3章）
-  - [ ] tests/fixtures/ mock 数据（vue2/vue3）
-  - [ ] build 脚本配置
-  - [ ] npm run build 可执行
+  - 运行 `npx ai-pilot init` 能正确输出检测报告和写入计划
+  - Fixtures 测试通过 (检测结果匹配 expected-outputs)
+```
+
+### Phase 0: 项目初始化（已完成）
+
+```
+执行人: @GPT-5.2
+状态: ✅ 已完成
+Reviewer: @Gemini-2.0-Flash
+完成时间: 2026-01-18 13:15
+
+产出物:
+  ✅ npm init + tsconfig + eslint
+  ✅ src/ 目录骨架 (符合第3章)
+  ✅ tests/fixtures/ (vue2/vue3/mixed)
+  ✅ build 脚本
 ```
 
 ### implementation-plan.md 编写进度

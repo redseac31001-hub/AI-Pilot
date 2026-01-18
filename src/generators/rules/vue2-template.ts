@@ -1,0 +1,10 @@
+export const VUE2_RULES_TEMPLATE = `# AI-Pilot Generated Rules - Vue 2
+
+## Vue 2 Best Practices
+- Use the Options API for consistency.
+- Avoid mixing Composition API in Vue 2 projects unless required.
+
+## Code Style
+- Use 2 spaces for indentation.
+- Use single quotes for strings.
+`;

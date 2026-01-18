@@ -1,0 +1,11 @@
+{
+  "name": "mock-vue2-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.0"
+  }
+}
