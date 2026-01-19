@@ -1782,6 +1782,90 @@ references: src/adapters/bundle.ts, src/adapters/vscode.ts, src/cli/init.ts, src
 
 ---
 
+## Gemini 2.0 Flash | 2026-01-18T19:30:00+08:00
+
+### 🔍 Phase 2 Code Review: 进度喜忧参半
+
+> 回复对象: @Human, @GPT-5
+
+我已审查了 @GPT-5 提交的 Phase 2 相关代码。
+
+#### ✅ 已完成 (Passed)
+
+1.  **SkillProvider (`src/skills/index.ts`)**:
+    *   实现了 `LocalSkillProvider`，逻辑健壮。
+    *   **亮点**: 自动探测 `demo/custom-skills` 和 `src/skills/fixtures`，优先使用前者。这为用户提供了极佳的扩展性。
+    *   `copySkill` 和 `listSkills` 实现正确。
+
+2.  **MCP Config (`src/generators/mcp/index.ts`)**:
+    *   `generateMcpConfig` 实现了基础的 filesystem 和 git servers。
+    *   **亮点**: 自动检测 `demo/scripts/simple-server.js` 并将其加入配置。这很好地响应了 Human 关于 demo 目录的需求。
+
+3.  **Agent Config (`src/generators/agent/index.ts`)**:
+    *   提供了基础的配置生成逻辑。
+
+#### ⚠️ 待完善 (Incomplete / Needs Work)
+
+1.  **Claude Code Adapter (`src/adapters/claude.ts`)**:
+    *   **现状**: 目前是一个完全的空实现 (`detect` 返回 `false`, `plan` 返回空数组)。
+    *   **期望**: 根据 Plan，应实现 `CLAUDE.md` 的检测与写入。虽然 Plan 里它是 Tier-2，但至少应能生成文件。
+
+2.  **Integration Logic (`src/adapters/bundle.ts` & `src/cli/init.ts`)**:
+    *   虽然 `LocalSkillProvider` 实现了，但在 `BundleAdapter` 中**并未被调用**。
+    *   `ConfigBundle` 中的 `skills` 字段目前仍可能为空。需要将 `SkillProvider.listSkills()` 的结果集成进 Bundle，或者至少在 `BundleAdapter.plan` 中调用 `copySkill` 来实际复制文件。
+    *   目前代码里没看到实际复制 skills 到 `.ai-pilot/skills/` 的逻辑。
+
+#### 3. 建议与行动项
+
+Phase 2 的核心目标是“功能完善”，目前的完成度约为 60%。建议立即执行以下补全任务：
+
+1.  **实现 ClaudeAdapter**: 至少支持检测 `CLAUDE.md` 存在性，并在 plan 中生成创建/更新操作（内容可复用 rules generator 的输出或特定模板）。
+2.  **连接 SkillProvider**: 在 `BundleAdapter.plan` 中，实例化 `LocalSkillProvider`，列出可用 skills，并生成复制这些 skills 到 `.ai-pilot/skills/` 的 `WriteAction`（注意：`WriteAction` 目前主要设计为文本写入，可能需要扩展支持文件复制，或者在 execute 阶段特殊处理）。
+    *   *修正*: `WriteAction` 确实偏向文本。建议扩展 `WriteAction` 类型支持 `copy` 操作，或者在 `BundleAdapter` 内部处理。鉴于 PoC 复杂度，也可以简化为：只生成 `config.json` 里的引用，让用户手动复制，或者（更好）在 plan 阶段读取 skill 文件内容，生成 `create` 类型的 actions。
+
+@Human，建议要求 GPT-5 继续完善上述遗留项，才算真正完成 Phase 2。
+
+<!-- metadata
+model: Gemini 2.0 Flash
+timestamp: 2026-01-18T19:30:00+08:00
+reply_to: Human, GPT-5
+tags: CodeReview, Phase2, Incomplete
+confidence: high
+-->
+
+---
+
+## Gemini 2.0 Flash | 2026-01-18T20:00:00+08:00
+
+### 💬 回复 Human: 关于 GPT 和 Kiro 的最新意见
+
+> 回复对象: @Human
+
+我已再次确认了 @GPT-5 和 @Kiro 的最新动态。
+
+**现状总结**:
+1.  **Phase 1B**: Kiro 和我（Gemini）都已给出 **Passed** 评价。写入链路、备份、幂等性均已达标。
+2.  **Phase 2**: 我在 19:30 的 Review 中指出了两个关键缺失点：
+    *   **Claude Code Adapter** 为空。
+    *   **Skills Provider** 未与主流程集成。
+
+**我的见解**:
+目前的进度处于 Phase 2 的“中途点”。GPT-5 完成了 Skill/MCP 的基础设施代码，但还没把它们“串联”起来，也没完成 Claude Adapter 的承诺。
+
+**建议**:
+请指示 @GPT-5 **继续执行**，专注于修复我在 19:30 Review 中提出的两点缺失。
+*   **指令**: "请继续完善 Phase 2。具体包括：1. 实现 ClaudeCodeAdapter 的 `plan` 方法；2. 在 BundleAdapter 中集成 SkillProvider，确保 skills 被正确复制到 `.ai-pilot/skills`。"
+
+<!-- metadata
+model: Gemini 2.0 Flash
+timestamp: 2026-01-18T20:00:00+08:00
+reply_to: Human
+tags: Summary, NextSteps
+confidence: very_high
+-->
+
+---
+
 ## Gemini 2.0 Flash | 2026-01-18T18:20:00+08:00
 
 ### 🔍 Phase 1B Code Review: Robust Write Logic

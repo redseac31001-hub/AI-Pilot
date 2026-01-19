@@ -2,7 +2,12 @@ import path from 'path';
 import { createDetectors } from '../detectors';
 import { getAdapters } from '../adapters/registry';
 import { ConfigBundle, DetectionResult, GeneratedRule, WritePlan, WriteResult } from '../core/types';
-import { generateRules, rulesLabel } from '../generators/rules';
+import {
+  collectImportedRules,
+  generateRules,
+  mergeRules,
+  rulesLabel,
+} from '../generators/rules';
 import { isTTY } from './ui';
 import { readJson } from '../utils/fs';
 import { deepEqual } from '../utils/json';
@@ -16,6 +21,8 @@ type InitOptions = {
   yes: boolean;
   format: OutputFormat;
   ide?: string;
+  ruleSources: string[];
+  skillSourceDir?: string;
 };
 
 function parseArgs(args: string[]): InitOptions {
@@ -24,6 +31,8 @@ function parseArgs(args: string[]): InitOptions {
   let yes = false;
   let format: OutputFormat = 'text';
   let ide: string | undefined;
+  const ruleSources: string[] = [];
+  let skillSourceDir: string | undefined;
 
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i];
@@ -56,6 +65,24 @@ function parseArgs(args: string[]): InitOptions {
         i += 1;
         break;
       }
+      case '--import-rules': {
+        const value = args[i + 1];
+        if (!value) {
+          throw new Error('Missing value for --import-rules.');
+        }
+        ruleSources.push(value);
+        i += 1;
+        break;
+      }
+      case '--import-skills': {
+        const value = args[i + 1];
+        if (!value) {
+          throw new Error('Missing value for --import-skills.');
+        }
+        skillSourceDir = value;
+        i += 1;
+        break;
+      }
       default:
         throw new Error(`Unknown argument: ${arg}`);
     }
@@ -65,12 +92,13 @@ function parseArgs(args: string[]): InitOptions {
     dryRun = true;
   }
 
-  return { dryRun, write, yes, format, ide };
+  return { dryRun, write, yes, format, ide, ruleSources, skillSourceDir };
 }
 
 function stripGeneratedAt(bundle: ConfigBundle): ConfigBundle {
+  const { ruleSources, skillSourceDir, ...rest } = bundle;
   return {
-    ...bundle,
+    ...rest,
     meta: {
       ...bundle.meta,
       generatedAt: '',
@@ -97,7 +125,9 @@ function createConfigBundle(
   detection: DetectionResult,
   existing: ConfigBundle | null,
   rules: GeneratedRule[],
-  skills: string[]
+  skills: string[],
+  ruleSources: string[],
+  skillSourceDir?: string
 ): ConfigBundle {
   const rulesPaths = rules.map((rule) => rule.path);
   const candidate: ConfigBundle = {
@@ -108,7 +138,9 @@ function createConfigBundle(
     },
     detection,
     rules: rulesPaths,
+    ...(ruleSources.length > 0 ? { ruleSources } : {}),
     skills,
+    ...(skillSourceDir ? { skillSourceDir } : {}),
     agent: {
       configPath: '.ai-pilot/agent/config.json',
     },
@@ -170,7 +202,14 @@ export async function runInit(args: string[]): Promise<void> {
 
   const detection = await detectors[0].detect(rootPath);
   const generatedRules = generateRules(detection);
-  const skillProvider = new LocalSkillProvider(rootPath);
+  const importedRules = collectImportedRules(rootPath, options.ruleSources);
+  const mergedRules = mergeRules(generatedRules, importedRules);
+  const skillProvider = new LocalSkillProvider(
+    rootPath,
+    options.skillSourceDir
+      ? path.resolve(rootPath, options.skillSourceDir)
+      : undefined
+  );
   const skillIds = await skillProvider.listSkills();
   const skillPaths = skillIds.map((skillId) => `.ai-pilot/skills/${skillId}`);
   const existingBundle = readJson<ConfigBundle>(
@@ -179,8 +218,10 @@ export async function runInit(args: string[]): Promise<void> {
   const bundle = createConfigBundle(
     detection,
     existingBundle,
-    generatedRules,
-    skillPaths
+    mergedRules,
+    skillPaths,
+    options.ruleSources,
+    options.skillSourceDir
   );
 
   const adapters = getAdapters().filter(

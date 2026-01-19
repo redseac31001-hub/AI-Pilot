@@ -1,0 +1,31 @@
+{
+  "rules": [
+    ".ai-pilot/rules/generated-vue2.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/architecture/feature-based-structure.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/typescript/api-request.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/typescript/strict-types.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue2/vue2-composition.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue2/vue2-general.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/pinia.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/router.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/vue3-script-setup.md",
+    ".ai-pilot/rules/imported/rules/layer2_business/antdv.md",
+    ".ai-pilot/rules/imported/rules/layer2_business/vant.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/debugging.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/refactoring.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/self-verification.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/testing.md"
+  ],
+  "skills": [
+    ".ai-pilot/skills/component-refactoring",
+    ".ai-pilot/skills/frontend-code-review",
+    ".ai-pilot/skills/frontend-testing",
+    ".ai-pilot/skills/skill-creator"
+  ],
+  "mcp": {
+    "servers": [
+      "filesystem",
+      "git"
+    ]
+  }
+}

@@ -37,7 +37,9 @@ export interface ConfigBundle {
   };
   detection: DetectionResult;
   rules: string[];
+  ruleSources?: string[];
   skills: string[];
+  skillSourceDir?: string;
   agent: {
     configPath: string;
   };

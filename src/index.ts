@@ -5,7 +5,7 @@ import { runInit } from './cli/init';
 const HELP_TEXT = `AI-Pilot PoC CLI
 
 Usage:
-  ai-pilot init [--dry-run] [--write --yes] [--ide <id>] [--format json|text]
+  ai-pilot init [--dry-run] [--write --yes] [--ide <id>] [--format json|text] [--import-rules <dir>] [--import-skills <dir>]
   ai-pilot --version
   ai-pilot --help
 `;

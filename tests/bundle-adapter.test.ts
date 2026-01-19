@@ -4,7 +4,7 @@ import path from 'path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { BundleAdapter } from '../src/adapters/bundle';
 import { ConfigBundle, DetectionResult } from '../src/core/types';
-import { rulesFileName } from '../src/generators/rules';
+import { RULES_MARKER, rulesFileName } from '../src/generators/rules';
 
 const fixturesRoot = path.resolve(process.cwd(), 'tests', 'fixtures');
 const tmpDirs: string[] = [];
@@ -38,6 +38,17 @@ function createDemoSkill(root: string, skillId: string): void {
   const skillDir = path.join(root, 'demo', 'custom-skills', skillId);
   fs.mkdirSync(skillDir, { recursive: true });
   fs.writeFileSync(path.join(skillDir, 'SKILL.md'), '# Demo skill\n', 'utf8');
+}
+
+function createRuleSource(root: string): string {
+  const sourceDir = path.join(root, 'rules-source');
+  const baseDir = path.join(sourceDir, 'layer1_base');
+  const actionDir = path.join(sourceDir, 'layer3_action');
+  fs.mkdirSync(baseDir, { recursive: true });
+  fs.mkdirSync(actionDir, { recursive: true });
+  fs.writeFileSync(path.join(baseDir, 'base.md'), '# Base\n', 'utf8');
+  fs.writeFileSync(path.join(actionDir, 'action.md'), '# Action\n', 'utf8');
+  return sourceDir;
 }
 
 afterEach(() => {
@@ -140,5 +151,56 @@ describe('BundleAdapter', () => {
 
     const parsedConfig = JSON.parse(configAction?.content || '{}') as ConfigBundle;
     expect(parsedConfig.skills).toContain('.ai-pilot/skills/demo-skill');
+  });
+
+  it('imports layered rules and strips internal config fields', async () => {
+    const root = makeTempDir();
+    const sourceDir = createRuleSource(root);
+    const skillSource = path.join(root, 'skill-source');
+    const skillDir = path.join(skillSource, 'demo-skill');
+    fs.mkdirSync(skillDir, { recursive: true });
+    fs.writeFileSync(path.join(skillDir, 'SKILL.md'), '# Skill\n', 'utf8');
+
+    const adapter = new BundleAdapter();
+    const detection: DetectionResult = {
+      techStack: {
+        framework: 'vue3',
+        language: 'ts',
+        buildTool: 'vite',
+        store: 'pinia',
+      },
+      confidence: 1,
+      evidence: [],
+    };
+    const bundle = {
+      ...makeBundle(detection),
+      ruleSources: [path.relative(root, sourceDir)],
+      skillSourceDir: path.relative(root, skillSource),
+    };
+
+    const plan = await adapter.plan(root, bundle);
+    const sourceId = path.basename(sourceDir).toLowerCase();
+    const basePath = `.ai-pilot/rules/imported/${sourceId}/layer1_base/base.md`;
+    const actionPath = `.ai-pilot/rules/imported/${sourceId}/layer3_action/action.md`;
+    const rulesAction = plan.actions.find(
+      (action) => action.targetPath === basePath
+    );
+    const actionRule = plan.actions.find(
+      (action) => action.targetPath === actionPath
+    );
+    const configAction = plan.actions.find(
+      (action) => action.targetPath === '.ai-pilot/config.json'
+    );
+
+    expect(rulesAction).toBeTruthy();
+    expect(actionRule).toBeTruthy();
+    expect(rulesAction?.content.startsWith(RULES_MARKER)).toBe(true);
+    expect(actionRule?.content.startsWith(RULES_MARKER)).toBe(true);
+
+    const parsedConfig = JSON.parse(configAction?.content || '{}') as ConfigBundle;
+    expect(parsedConfig.ruleSources).toBeUndefined();
+    expect(parsedConfig.skillSourceDir).toBeUndefined();
+    expect(parsedConfig.rules).toContain(basePath);
+    expect(parsedConfig.rules).toContain(actionPath);
   });
 });

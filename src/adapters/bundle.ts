@@ -1,7 +1,12 @@
 import path from 'path';
 import { BaseAdapter } from './base';
 import { ConfigBundle, WritePlan, WriteResult, WriteAction } from '../core/types';
-import { generateRules, RULES_MARKER } from '../generators/rules';
+import {
+  collectImportedRules,
+  generateRules,
+  mergeRules,
+  RULES_MARKER,
+} from '../generators/rules';
 import { assessRisk } from '../utils/risk';
 import { readText } from '../utils/fs';
 import { deepEqual } from '../utils/json';
@@ -121,16 +126,24 @@ export class BundleAdapter extends BaseAdapter {
   }
 
   async plan(rootPath: string, bundle: ConfigBundle): Promise<WritePlan> {
-    const ruleOutputs = generateRules(bundle.detection);
+    const generatedRules = generateRules(bundle.detection);
+    const importedRules = collectImportedRules(rootPath, bundle.ruleSources ?? []);
+    const ruleOutputs = mergeRules(generatedRules, importedRules);
     const rulePaths = ruleOutputs.map((rule) => rule.path);
-    const skillProvider = new LocalSkillProvider(rootPath);
+    const skillProvider = new LocalSkillProvider(
+      rootPath,
+      bundle.skillSourceDir
+        ? path.resolve(rootPath, bundle.skillSourceDir)
+        : undefined
+    );
     const skillIds = await skillProvider.listSkills();
     const skillPaths = skillIds.map((skillId) => `.ai-pilot/skills/${skillId}`);
     const skillFiles = skillIds.flatMap((skillId) =>
       skillProvider.readSkillFiles(skillId)
     );
 
-    const bundleForWrite = { ...bundle, rules: rulePaths, skills: skillPaths };
+    const { ruleSources, skillSourceDir, ...bundleBase } = bundle;
+    const bundleForWrite = { ...bundleBase, rules: rulePaths, skills: skillPaths };
     const mcpConfig = generateMcpConfig(rootPath);
     const agentConfig = generateAgentConfig({
       rules: rulePaths,

@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "version": "0.0.1",
+    "generatedAt": "2026-01-18T13:56:01.828Z",
+    "generator": "ai-pilot-poc"
+  },
+  "detection": {
+    "techStack": {
+      "framework": "vue2",
+      "language": "js",
+      "buildTool": "vue-cli",
+      "store": "vuex"
+    },
+    "confidence": 1,
+    "evidence": [
+      {
+        "type": "dependency",
+        "filePath": "package.json",
+        "description": "Found vue version ^2.6.14",
+        "weight": 0.4
+      },
+      {
+        "type": "file_existence",
+        "filePath": "src/main.js",
+        "description": "Found entry file main.js",
+        "weight": 0.05
+      },
+      {
+        "type": "content_match",
+        "filePath": "src/main.js",
+        "description": "Found new Vue() in entry file",
+        "weight": 0.4
+      },
+      {
+        "type": "file_existence",
+        "filePath": "src/main.js",
+        "description": "Entry file is JavaScript",
+        "weight": 0.1
+      },
+      {
+        "type": "dependency",
+        "filePath": "package.json",
+        "description": "Found @vue/cli-service dependency",
+        "weight": 0.1
+      },
+      {
+        "type": "dependency",
+        "filePath": "package.json",
+        "description": "Found vuex dependency",
+        "weight": 0.1
+      }
+    ]
+  },
+  "rules": [
+    ".ai-pilot/rules/generated-vue2.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/architecture/feature-based-structure.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/typescript/api-request.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/typescript/strict-types.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue2/vue2-composition.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue2/vue2-general.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/pinia.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/router.md",
+    ".ai-pilot/rules/imported/rules/layer1_base/vue3/vue3-script-setup.md",
+    ".ai-pilot/rules/imported/rules/layer2_business/antdv.md",
+    ".ai-pilot/rules/imported/rules/layer2_business/vant.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/debugging.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/refactoring.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/self-verification.md",
+    ".ai-pilot/rules/imported/rules/layer3_action/testing.md"
+  ],
+  "skills": [
+    ".ai-pilot/skills/component-refactoring",
+    ".ai-pilot/skills/frontend-code-review",
+    ".ai-pilot/skills/frontend-testing",
+    ".ai-pilot/skills/skill-creator"
+  ],
+  "agent": {
+    "configPath": ".ai-pilot/agent/config.json"
+  },
+  "mcp": {
+    "configPath": ".ai-pilot/mcp/servers.json"
+  }
+}

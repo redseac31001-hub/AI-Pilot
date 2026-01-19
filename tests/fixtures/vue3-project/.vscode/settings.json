@@ -1,0 +1,10 @@
+{
+  "ai-pilot.rules": "Vue 3",
+  "ai-pilot.lastUpdate": "2026-01-18T13:56:21.177Z",
+  "ai-pilot.detectedStack": {
+    "framework": "vue3",
+    "language": "ts",
+    "buildTool": "vite",
+    "store": "pinia"
+  }
+}

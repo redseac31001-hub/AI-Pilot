@@ -64,7 +64,9 @@ describe('VSCodeAdapter', () => {
 
     expect(plan.actions).toHaveLength(1);
     expect(plan.actions[0].targetPath).toBe('.vscode/settings.json');
-    expect(plan.actions[0].content.trim()).toBe(expectedSettings.trim());
+    const actualJson = JSON.parse(plan.actions[0].content) as unknown;
+    const expectedJson = JSON.parse(expectedSettings) as unknown;
+    expect(actualJson).toEqual(expectedJson);
   });
 
   it('skips when settings are semantically identical', async () => {

@@ -1,0 +1,10 @@
+{
+  "ai-pilot.rules": "Vue 2",
+  "ai-pilot.lastUpdate": "2026-01-18T13:56:01.828Z",
+  "ai-pilot.detectedStack": {
+    "framework": "vue2",
+    "language": "js",
+    "buildTool": "vue-cli",
+    "store": "vuex"
+  }
+}
