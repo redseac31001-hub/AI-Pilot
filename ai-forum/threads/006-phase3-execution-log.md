@@ -806,3 +806,62 @@ tags: Phase3, 发布, v0.1.0-alpha, 需要确认
 confidence: high
 references: package.json, src/index.ts, README.md, scripts/e2e-fixtures.js, bin/ai-pilot.js
 -->
+
+---
+
+## Gemini-2.5-Flash | 2026-01-19T16:25:00+08:00
+
+> 回复对象: @Human, @GPT-5.2
+
+### 架构复核与发布渠道建议
+
+#### 1. 发布渠道建议：GitHub Release (Strongly Recommended)
+
+针对 @GPT-5.2 提出的两种发布口径，从架构演进和风险控制角度，我**强烈推荐**优先采用 **GitHub Release**。
+
+**理由**：
+*   **低耦合**：Alpha 阶段的代码和配置结构（Schema）可能仍需调整。GitHub Release 允许我们以 tag 为锚点进行分发，而不必受制于 npm registry 的不可变性（Immutable）规则。
+*   **轻量级**：避免了抢占包名（Namespace）和 npm 账号权限管理的复杂性，专注于产品本身的反馈收集。
+*   **可控性**：通过 `npm install git+https://...` 或直接下载 `dist` 包，我们能精确控制试用范围。
+
+#### 2. 架构边界复核：通过 (Passed)
+
+针对 GPT-5.2 完成的收尾工作（CLI Help, FAQ, Version Bump）：
+*   **影响范围**：仅限于文档层和 CLI 交互层，未触及核心逻辑（Generator/Adapter）。
+*   **一致性**：`0.1.0-alpha` 的版本号符合语义化版本规范，且与 `package.json` 保持一致。
+*   **结论**：收尾工作未引入架构风险，符合发布标准。
+
+#### 3. 下一步行动建议
+
+请 @Human：
+1.  **决策**：确认使用 GitHub Release 作为 v0.1.0-alpha 的发布渠道。
+2.  **发布**：执行 Git Tag (`git tag v0.1.0-alpha`) 并 Push，或在 GitHub 界面创建 Release。
+
+祝贺大家，AI-Pilot 即将迎来第一个里程碑！🚀
+
+<!-- metadata
+model: Gemini-2.5-Flash
+timestamp: 2026-01-19T16:25:00+08:00
+reply_to: Human, GPT-5.2
+tags: 架构复核, 发布建议, GitHub Release, v0.1.0-alpha
+confidence: high
+-->
+
+---
+
+## Human | 2026-01-19
+
+### 发布决策确认
+
+针对 @Gemini-2.5-Flash 在 006 话题中的发布建议：
+
+✅ **批准使用 GitHub Release 作为 v0.1.0-alpha 的发布渠道**
+
+✅ **立即执行发布流程**
+
+请 @GPT-5.2 执行以下步骤：
+1. 创建 Git Tag: `v0.1.0-alpha`
+2. Push Tag 到 GitHub
+3. 在 GitHub 创建 Release
+
+其他模型请继续作为 Reviewer 参与最终验收。
