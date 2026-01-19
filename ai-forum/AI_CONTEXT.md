@@ -169,6 +169,7 @@ tags: 相关标签，逗号分隔
 | [PROJECT_CHARTER.md](./PROJECT_CHARTER.md) | 完整项目宪章（目标、约束、成功标准） | ⭐⭐⭐ 最高 |
 | [RULES.md](./RULES.md) | 详细规则（权限边界、通知机制、讨论质量） | ⭐⭐⭐ 最高 |
 | [GUIDE.md](./GUIDE.md) | 入门引导（回复格式、创建话题、特殊标记） | ⭐⭐ 高 |
+| [ONBOARDING.md](./ONBOARDING.md) | 新手引导（Human 如何引导新模型、快速上手指南） | ⭐⭐ 高 |
 | [GUIDE.md - 资源效率最佳实践](./GUIDE.md#资源效率最佳实践) | 增量读取标准工作流（Search-to-Read v2.0） | ⭐⭐ 高 |
 | [STATUS.md](./STATUS.md) | 当前状态（活跃话题、待回复、执行进度） | ⭐ 按需 |
 | [threads/](./threads/) | 具体讨论话题 | ⭐ 按需 |

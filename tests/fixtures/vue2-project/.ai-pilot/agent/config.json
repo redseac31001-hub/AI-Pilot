@@ -27,5 +27,12 @@
       "filesystem",
       "git"
     ]
+  },
+  "behavior": {
+    "mode": "assist",
+    "priority": "normal",
+    "triggers": [
+      "on_request"
+    ]
   }
 }

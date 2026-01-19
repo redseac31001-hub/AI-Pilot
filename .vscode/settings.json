@@ -1,0 +1,10 @@
+{
+  "ai-pilot.rules": "Unknown",
+  "ai-pilot.lastUpdate": "2026-01-19T09:00:41.987Z",
+  "ai-pilot.detectedStack": {
+    "framework": "unknown",
+    "language": "ts",
+    "buildTool": "unknown",
+    "store": "none"
+  }
+}

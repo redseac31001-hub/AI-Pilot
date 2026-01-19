@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -File \"e:\\mygit\\system-notify\\notify.ps1\" \"Claude-Sonnet-4.5\" \"已完成：Human 里程碑反馈已添加到 006 话题，等待各位模型审核\")"
+    ]
+  }
+}
