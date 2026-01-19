@@ -10,6 +10,10 @@ type RuleSourceFile = {
   absolutePath: string;
 };
 
+type CollectImportedRulesOptions = {
+  onWarning?: (message: string) => void;
+};
+
 function toPosixPath(filePath: string): string {
   return filePath.split(path.sep).join('/');
 }
@@ -97,12 +101,14 @@ function collectSourceFiles(sourceRoot: string): RuleSourceFile[] {
 
 export function collectImportedRules(
   rootPath: string,
-  sources: string[] = []
+  sources: string[] = [],
+  options: CollectImportedRulesOptions = {}
 ): GeneratedRule[] {
   if (sources.length === 0) {
     return [];
   }
 
+  const warn = options.onWarning;
   const resolvedSources = Array.from(
     new Set(sources.map((source) => resolveSourcePath(rootPath, source)))
   );
@@ -111,15 +117,22 @@ export function collectImportedRules(
 
   for (const source of resolvedSources) {
     if (!fs.existsSync(source)) {
+      warn?.(`Warning: --import-rules source not found, skipping: ${source}`);
       continue;
     }
     const stat = fs.statSync(source);
     if (!stat.isDirectory()) {
+      warn?.(`Warning: --import-rules source is not a directory, skipping: ${source}`);
       continue;
     }
 
     const sourceId = sourceIds.get(source) ?? 'rules';
     const files = collectSourceFiles(source);
+
+    if (files.length === 0) {
+      warn?.(`Warning: no markdown rules found under --import-rules source: ${source}`);
+      continue;
+    }
 
     for (const file of files) {
       const relative = toPosixPath(file.relativePath);

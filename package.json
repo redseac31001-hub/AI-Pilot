@@ -1,6 +1,6 @@
 {
   "name": "ai-pilot",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha",
   "private": true,
   "description": "AI-Pilot PoC CLI",
   "type": "commonjs",
@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "e2e:fixtures": "node scripts/e2e-fixtures.js",
     "lint": "eslint . --ext .ts",
     "test": "vitest run"
   },

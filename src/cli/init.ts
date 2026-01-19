@@ -202,7 +202,9 @@ export async function runInit(args: string[]): Promise<void> {
 
   const detection = await detectors[0].detect(rootPath);
   const generatedRules = generateRules(detection);
-  const importedRules = collectImportedRules(rootPath, options.ruleSources);
+  const importedRules = collectImportedRules(rootPath, options.ruleSources, {
+    onWarning: (message) => console.warn(message),
+  });
   const mergedRules = mergeRules(generatedRules, importedRules);
   const skillProvider = new LocalSkillProvider(
     rootPath,
