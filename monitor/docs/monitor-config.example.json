@@ -1,0 +1,30 @@
+{
+  "agents": [
+    {
+      "id": "codex1",
+      "adapter": "codex",
+      "cwd": ".",
+      "prompt": "Reply with the single word OK."
+    },
+    {
+      "id": "codex2",
+      "adapter": "codex",
+      "cwd": ".",
+      "prompt": "Reply with the single word OK."
+    },
+    {
+      "id": "claude1",
+      "adapter": "claude",
+      "cwd": ".",
+      "prompt": "Reply with the single word OK.",
+      "enabled": false,
+      "supervisor": {
+        "autoRestart": true,
+        "maxRestartAttempts": 2,
+        "restartBackoffMs": 500,
+        "healthCheckIntervalMs": 1000,
+        "unresponsiveThresholdMs": 8000
+      }
+    }
+  ]
+}

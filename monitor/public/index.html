@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Pilot Monitor</title>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <section class="hero">
+        <div class="hero-top">
+          <div>
+            <div class="eyebrow">AI-Pilot Runtime Monitor</div>
+            <h1>多 Agent 监控台</h1>
+            <p class="subtitle">
+              当前页面已支持批量启动多个 agent、并行展示卡片状态，并把结构化事件与最小文本摘要一起写入 Chat Feed。
+            </p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <label>Monitor 状态</label>
+              <strong id="health-status">checking</strong>
+            </div>
+            <div class="stat">
+              <label>活跃运行</label>
+              <strong id="active-runs">0</strong>
+            </div>
+            <div class="stat">
+              <label>事件总数</label>
+              <strong id="event-count">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <select id="adapter-select">
+            <option value="codex">codex</option>
+            <option value="claude">claude</option>
+          </select>
+          <input id="agent-id-input" placeholder="agent 名称。批量时会自动补 1/2/3。" />
+          <input id="run-count-input" type="number" min="1" max="6" value="1" />
+          <textarea id="prompt-input" placeholder="输入 prompt。Phase 2 默认推荐 codex 多开验证。">Reply with the single word OK.</textarea>
+          <textarea id="cwd-input" placeholder="工作目录。留空时使用 monitor server 默认 cwd。"></textarea>
+          <button id="start-run">启动任务</button>
+        </div>
+        <p class="control-hint">批量模式下会按 `agent 名称 + 序号` 生成标识，例如 `codex1`、`codex2`。</p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Agent Board</h2>
+              <p>当前板块优先把运行中的 agent 排在前面，并保留每个 run 的摘要或错误终态。</p>
+            </div>
+            <span class="pill" id="socket-pill">WS connecting</span>
+          </div>
+          <div class="board-stats" id="board-stats"></div>
+          <div class="cards" id="agent-cards">
+            <div class="empty">还没有运行中的 agent。点击上方“启动任务”创建一条 run。</div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Chat Feed</h2>
+              <p>按时间展示结构化事件与 `summary.updated` 摘要，供多 agent 对话流归档查看。</p>
+            </div>
+            <button class="secondary" id="clear-feed">清空视图</button>
+          </div>
+          <div class="feed">
+            <div class="feed-list" id="feed-list">
+              <div class="empty">等待事件流接入。</div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <script type="module" src="/frontend/app.js"></script>
+  </body>
+</html>

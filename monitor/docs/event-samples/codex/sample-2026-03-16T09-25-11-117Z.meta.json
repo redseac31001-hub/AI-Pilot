@@ -1,0 +1,20 @@
+{
+  "command": "codex",
+  "args": [
+    "exec",
+    "--json",
+    "--color",
+    "never",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--ephemeral",
+    "Reply with the single word OK."
+  ],
+  "cwd": "E:\\mygit\\AI-Pilot",
+  "capturedAt": "2026-03-16T09:25:11.125Z",
+  "version": "",
+  "exitCode": null,
+  "signal": null,
+  "stderr": ""
+}

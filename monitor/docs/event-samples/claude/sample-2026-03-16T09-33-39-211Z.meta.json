@@ -1,0 +1,22 @@
+{
+  "command": "claude",
+  "args": [
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\nodejs\\node_global\\claude.ps1",
+    "-p",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--no-session-persistence",
+    "Reply with the single word OK."
+  ],
+  "cwd": "E:\\mygit\\AI-Pilot",
+  "capturedAt": "2026-03-16T09:33:44.468Z",
+  "version": "2.1.76 (Claude Code)",
+  "exitCode": 1,
+  "signal": null,
+  "stderr": "Error: When using --print, --output-format=stream-json requires --verbose\n"
+}

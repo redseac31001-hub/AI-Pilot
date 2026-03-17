@@ -5,3 +5,6 @@ npm-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 coverage/
+monitor/.tmp/
+monitor/.tmp-monitor.err
+monitor/.tmp-monitor.out

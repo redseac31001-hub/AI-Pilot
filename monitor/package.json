@@ -1,0 +1,30 @@
+{
+  "name": "@ai-pilot/monitor",
+  "version": "0.3.0-alpha",
+  "private": true,
+  "description": "AI-Pilot monitor submodule for multi-agent runtime supervision",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "public",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --dts --sourcemap --target node18",
+    "lint": "eslint src --ext .ts",
+    "start": "node start.js",
+    "verify:phase1c": "node scripts/run-phase1c-browser-check.js",
+    "verify:phase2-multi": "node scripts/run-phase2-multi-agent-check.js",
+    "verify:phase2-summary": "node scripts/run-phase2-summary-check.js",
+    "verify:phase2-config": "node scripts/run-phase2-config-check.js",
+    "verify:phase2-claude": "node scripts/run-phase2-claude-page-check.js",
+    "verify:phase3-reconnect": "node scripts/run-phase3-reconnect-check.js",
+    "verify:phase3-supervisor": "node scripts/run-phase3-supervisor-check.js"
+  },
+  "dependencies": {
+    "tree-kill": "^1.2.2",
+    "ws": "^8.19.0"
+  }
+}

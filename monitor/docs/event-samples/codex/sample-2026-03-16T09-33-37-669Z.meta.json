@@ -1,0 +1,25 @@
+{
+  "command": "codex",
+  "args": [
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\nodejs\\node_global\\codex.ps1",
+    "exec",
+    "--json",
+    "--color",
+    "never",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--ephemeral",
+    "Reply with the single word OK."
+  ],
+  "cwd": "E:\\mygit\\AI-Pilot",
+  "capturedAt": "2026-03-16T09:33:49.767Z",
+  "version": "codex-cli 0.114.0",
+  "exitCode": 0,
+  "signal": null,
+  "stderr": ""
+}

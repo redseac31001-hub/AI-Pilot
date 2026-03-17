@@ -1,0 +1,17 @@
+{
+  "command": "claude",
+  "args": [
+    "-p",
+    "--output-format",
+    "stream-json",
+    "--include-partial-messages",
+    "--no-session-persistence",
+    "Reply with the single word OK."
+  ],
+  "cwd": "E:\\mygit\\AI-Pilot",
+  "capturedAt": "2026-03-16T09:32:54.751Z",
+  "version": "",
+  "exitCode": null,
+  "signal": null,
+  "stderr": ""
+}
