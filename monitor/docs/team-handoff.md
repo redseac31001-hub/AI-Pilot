@@ -4,6 +4,8 @@
 > Date: 2026-03-17
 > Purpose: quickest entry point for reviewers and collaborators
 
+Root entry: [CURRENT_STATUS.md](E:/mygit/AI-Pilot/CURRENT_STATUS.md)
+
 ## 1. What exists right now
 
 仓库里当前同时存在两层内容:

@@ -1,5 +1,7 @@
 # AI-Pilot
 
+> Current entry for collaborators: [CURRENT_STATUS.md](E:/mygit/AI-Pilot/CURRENT_STATUS.md)
+
 AI-Pilot 是一个跨 IDE 的 AI 配置初始化工具。本仓库包含 PoC 阶段的 CLI 骨架与 fixtures。
 AI-Pilot is a cross-IDE AI configuration bootstrapper. This repo holds the PoC CLI scaffold and fixtures.
 
