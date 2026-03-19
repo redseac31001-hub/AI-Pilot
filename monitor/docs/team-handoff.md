@@ -27,10 +27,11 @@ Root entry: [CURRENT_STATUS.md](E:/mygit/AI-Pilot/CURRENT_STATUS.md)
 2. [detailed design](E:/mygit/AI-Pilot/monitor/docs/powershell-terminal-platform-detailed-design.md)
 3. [prototype](E:/mygit/AI-Pilot/monitor/docs/powershell-terminal-platform-prototype.md)
 4. [forum realignment thread](E:/mygit/AI-Pilot/ai-forum/threads/009-powershell-terminal-platform-realignment.md)
-5. [legacy README note](E:/mygit/AI-Pilot/monitor/README.md)
-6. [legacy TASKS note](E:/mygit/AI-Pilot/monitor/TASKS.md)
+5. [doc freeze checklist](E:/mygit/AI-Pilot/monitor/docs/doc-freeze-checklist.md)
+6. [legacy README note](E:/mygit/AI-Pilot/monitor/README.md)
+7. [legacy TASKS note](E:/mygit/AI-Pilot/monitor/TASKS.md)
 
-如果只给 10 分钟，先读前 4 项。
+如果只给 10 分钟，先读前 5 项。
 
 ## 3. Current conclusion
 

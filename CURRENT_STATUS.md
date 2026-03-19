@@ -12,6 +12,7 @@
 3. [monitor/docs/powershell-terminal-platform-detailed-design.md](E:/mygit/AI-Pilot/monitor/docs/powershell-terminal-platform-detailed-design.md)
 4. [monitor/docs/powershell-terminal-platform-prototype.md](E:/mygit/AI-Pilot/monitor/docs/powershell-terminal-platform-prototype.md)
 5. [ai-forum/threads/009-powershell-terminal-platform-realignment.md](E:/mygit/AI-Pilot/ai-forum/threads/009-powershell-terminal-platform-realignment.md)
+6. [monitor/docs/doc-freeze-checklist.md](E:/mygit/AI-Pilot/monitor/docs/doc-freeze-checklist.md)
 
 ## Current Product Position
 
@@ -38,8 +39,9 @@
 如果你是团队成员：
 
 1. 先读上面的 5 份文档
-2. 再看 [monitor/README.md](E:/mygit/AI-Pilot/monitor/README.md) 和 [monitor/TASKS.md](E:/mygit/AI-Pilot/monitor/TASKS.md)
-3. 最后再进入 `monitor/src` 和 `monitor/frontend`
+2. 再完成 [doc-freeze-checklist](E:/mygit/AI-Pilot/monitor/docs/doc-freeze-checklist.md)
+3. 再看 [monitor/README.md](E:/mygit/AI-Pilot/monitor/README.md) 和 [monitor/TASKS.md](E:/mygit/AI-Pilot/monitor/TASKS.md)
+4. 最后再进入 `monitor/src` 和 `monitor/frontend`
 
 如果你是执行者：
 
